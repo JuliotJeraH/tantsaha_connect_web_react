@@ -1,0 +1,73 @@
+.observation-item {
+  margin-bottom: 12px;
+}
+
+.obs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.obs-info {
+  flex: 1;
+}
+
+.obs-type-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.obs-icon {
+  font-size: 20px;
+}
+
+.obs-icon.rain {
+  color: #1E90FF;
+}
+
+.obs-icon.pest {
+  color: #FF6347;
+}
+
+.obs-icon.planting {
+  color: #4CAF50;
+}
+
+.obs-crop {
+  font-size: 12px;
+  color: #999;
+  background: #f5f5f5;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.obs-description {
+  margin: 0 0 12px 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.obs-footer {
+  font-size: 12px;
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  .obs-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .obs-type-badge {
+    margin-bottom: 4px;
+  }
+}

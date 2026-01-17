@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2026-01-17",
+    "temp": 28,
+    "humidity": 65,
+    "condition": "sunny",
+    "rainChance": 10
+  },
+  {
+    "date": "2026-01-18",
+    "temp": 26,
+    "humidity": 70,
+    "condition": "partly-cloudy",
+    "rainChance": 30
+  },
+  {
+    "date": "2026-01-19",
+    "temp": 24,
+    "humidity": 75,
+    "condition": "rainy",
+    "rainChance": 80
+  }
+]

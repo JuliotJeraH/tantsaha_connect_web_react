@@ -1,0 +1,69 @@
+.alert-item {
+  margin-bottom: 12px;
+}
+
+.alert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.alert-type {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.alert-type h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.alert-type-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.alert-type-icon.planting {
+  color: #4CAF50;
+}
+
+.alert-type-icon.harvest {
+  color: #FF9800;
+}
+
+.alert-type-icon.warning {
+  color: #f44336;
+}
+
+.alert-description {
+  margin: 0 0 12px 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.alert-date {
+  font-size: 12px;
+  color: #999;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .alert-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .alert-type h3 {
+    font-size: 16px;
+  }
+
+  .alert-type-icon {
+    font-size: 20px;
+  }
+}
