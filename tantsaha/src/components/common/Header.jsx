@@ -1,14 +1,14 @@
 import React from 'react';
 import './Header.css';
-import { FaLeaf, FaClock, FaCloud, FaBook, FaBell, FaHome } from 'react-icons/fa';
+import { FaLeaf, FaCalendar, FaCloud, FaBook, FaBell, FaHome } from 'react-icons/fa';
 
-const Header = React.memo(({ currentPage, onNavigate }) => {
+const Header = React.memo(({ currentPage, onNavigate, alertsCount = 0 }) => {
   const navItems = [
-    { id: 'home', label: 'Accueil', icon: FaHome },
-    { id: 'weather', label: 'Météo', icon: FaCloud },
-    { id: 'alerts', label: 'Alertes', icon: FaBell },
-    { id: 'journal', label: 'Journal', icon: FaClock },
-    { id: 'advice', label: 'Conseils', icon: FaBook },
+    { id: 'home', label: 'Lamina', icon: FaHome },
+    { id: 'weather', label: 'Toetr\'andro', icon: FaCloud },
+    { id: 'alerts', label: 'Fampahafantarana', icon: FaBell, badge: alertsCount },
+    { id: 'journal', label: 'Bokin-tsoratra', icon: FaCalendar },
+    { id: 'advice', label: 'Torolalana', icon: FaBook },
   ];
 
   return (
@@ -29,7 +29,12 @@ const Header = React.memo(({ currentPage, onNavigate }) => {
               onClick={() => onNavigate(item.id)}
               title={item.label}
             >
-              <Icon className="nav-icon" />
+              <div className="nav-icon-wrapper">
+                <Icon className="nav-icon" />
+                {item.badge && item.badge > 0 && (
+                  <span className="badge">{item.badge > 9 ? '9+' : item.badge}</span>
+                )}
+              </div>
               <span className="nav-label">{item.label}</span>
             </button>
           );

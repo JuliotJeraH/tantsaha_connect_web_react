@@ -1,5 +1,26 @@
 .alert-item {
   margin-bottom: 12px;
+  border-left: 4px solid #999;
+}
+
+.alert-item.danger {
+  border-left-color: #f44336;
+  background-color: #ffebee;
+}
+
+.alert-item.warning {
+  border-left-color: #ff9800;
+  background-color: #fff3e0;
+}
+
+.alert-item.info {
+  border-left-color: #2196F3;
+  background-color: #e3f2fd;
+}
+
+.alert-item.highlighted {
+  border-left-color: #4CAF50;
+  background-color: #e8f5e9;
 }
 
 .alert-header {
@@ -12,15 +33,58 @@
 
 .alert-type {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
   flex: 1;
+}
+
+.alert-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .alert-type h3 {
   margin: 0;
   font-size: 18px;
   color: #333;
+}
+
+.alert-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.alert-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #666;
+  padding: 4px 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.alert-urgence {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.alert-urgence.haute {
+  color: #f44336;
+}
+
+.alert-urgence.moyenne {
+  color: #ff9800;
 }
 
 .alert-type-icon {
@@ -42,15 +106,56 @@
 
 .alert-description {
   margin: 0 0 12px 0;
-  color: #666;
+  color: #555;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.6;
+}
+
+.alert-actions {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 12px;
+  border-radius: 6px;
+  margin: 12px 0;
+}
+
+.alert-actions strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 13px;
+}
+
+.alert-actions ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.alert-actions li {
+  margin: 6px 0;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.alert-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .alert-date {
   font-size: 12px;
   color: #999;
-  text-align: right;
+}
+
+.alert-inactive {
+  font-size: 12px;
+  color: #999;
+  font-style: italic;
 }
 
 @media (max-width: 768px) {
@@ -65,5 +170,14 @@
 
   .alert-type-icon {
     font-size: 20px;
+  }
+
+  .alert-meta {
+    flex-wrap: wrap;
+  }
+
+  .alert-footer {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

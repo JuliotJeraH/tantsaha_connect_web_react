@@ -4,7 +4,7 @@ import Card from '../common/Card';
 import Button from '../common/Button';
 import './ObservationItem.css';
 
-const ObservationItem = React.memo(({ observation, onDelete }) => {
+const ObservationItem = React.memo(({ observation, onDelete, hideDelete = false }) => {
   const handleDelete = useCallback(() => {
     onDelete(observation.id);
   }, [observation.id, onDelete]);
@@ -32,7 +32,7 @@ const ObservationItem = React.memo(({ observation, onDelete }) => {
           </div>
           <div className="obs-crop">{observation.crop}</div>
         </div>
-        <Button variant="danger" size="sm" onClick={handleDelete}>
+        <Button variant="danger" size="sm" onClick={handleDelete} style={{ display: hideDelete ? 'none' : 'flex' }}>
           <FaTrash />
         </Button>
       </div>

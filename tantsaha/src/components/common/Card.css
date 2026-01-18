@@ -12,13 +12,10 @@
 }
 
 .card.highlighted {
-  border-left: 4px solid #4CAF50;
 }
 
 .card.warning {
-  border-left: 4px solid #FF9800;
 }
 
 .card.danger {
-  border-left: 4px solid #f44336;
 }

@@ -1,5 +1,42 @@
 .weather-card {
   margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+  background: white;
+}
+
+.weather-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  z-index: 1;
+  opacity: 0.7;
+}
+
+.weather-card:not(.highlighted)::before {
+  opacity: 0.4;
+  filter: blur(1px);
+}
+
+.weather-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.weather-card.highlighted {
+  color: #333;
+}
+
+.weather-card:not(.highlighted) {
+  color: #333;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .weather-header {
@@ -19,15 +56,19 @@
 }
 
 .weather-icon.sun {
-  color: #FFD700;
+  color: #FFC700;
 }
 
 .weather-icon.rain {
-  color: #1E90FF;
+  color: #1873CC;
 }
 
 .weather-icon.cloud {
-  color: #A9A9A9;
+  color: #808080;
+}
+
+.weather-card:not(.highlighted) .weather-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .weather-info {

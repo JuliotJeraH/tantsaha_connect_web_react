@@ -18,6 +18,9 @@ const OPENWEATHER_BASE_URL = 'https://api.openweathermap.org/data/2.5/';
 app.use(cors());
 app.use(express.json());
 
+// Serve static files (audio)
+app.use('/audio', express.static(path.join(__dirname, 'src/assets')));
+
 // Database file paths
 const dataDir = path.join(__dirname, 'data');
 const alertsFile = path.join(dataDir, 'alerts.json');
@@ -178,7 +181,11 @@ app.delete('/api/observations/:id', (req, res) => {
 
 // ============ WEATHER API ============
 app.get('/api/weather', async (req, res) => {
-  const weather = await getRealWeather();
+  const { lat, lon } = req.query;
+  const latitude = lat ? parseFloat(lat) : -18.8792;
+  const longitude = lon ? parseFloat(lon) : 47.5079;
+  
+  const weather = await getRealWeather(latitude, longitude);
   res.json(weather);
 });
 
@@ -193,11 +200,16 @@ app.post('/api/weather', (req, res) => {
 // ============ ADVICE API ============
 app.get('/api/advice', (req, res) => {
   const advices = [
-    { id: 1, crop: 'rice', title: 'Arrosage du riz', description: 'Arroser régulièrement pendant les 3 premiers mois', icon: 'droplet' },
-    { id: 2, crop: 'maize', title: 'Semis maïs', description: 'Semer à 2-3 cm de profondeur, espacés de 20 cm', icon: 'leaf' },
-    { id: 3, crop: 'beans', title: 'Haricots sains', description: 'Surveiller les parasites, utiliser des pièges à insectes', icon: 'bug' },
-    { id: 4, crop: 'potato', title: 'Culture pommes de terre', description: 'Récolter après 90 jours de plantation', icon: 'harvest' },
-    { id: 5, crop: 'rice', title: 'Lutte parasites riz', description: 'Utiliser des solutions biologiques', icon: 'shield' },
+    { id: 1, crop: 'general', title: 'Fanomanana ny tany', description: 'Alohan\'ny hamafazana na hambolena dia :\n-Harorana tsara ny tany\n-Esorina ny ahi-dratsy\n-Ahitsiana sy ahodina tsara ny tampon-tany\n-Jereo raha lena na maina loatra ny tany', icon: 'lightbulb', audio: 'fanomanana-ny-tany.wav' },
+    { id: 2, crop: 'general', title: 'Fanondrahana', description: 'Raha monondraka dia : - Manodraka amin\'ny andro mivatravatre, mafana be - Aza manodraka amin\'ny andro mivatravatre - Aza manodraka raha hiey crana be', icon: 'water', audio: 'fanondrahana.wav' },
+    { id: 3, crop: 'general', title: 'Hiadiana amin\'ny bibilely mpanimba', description: 'Diniho matetika ny ravin-javameniry - Esory amin\'ny tañana ny bibilely hita - Ampiasso vehaciana voajanahahy (reno + savory, ravin\'neem, sakamalalio, tongolo gasy...)', icon: 'bug', audio: 'hiadiana-bibilely.wav' },
+    { id: 4, crop: 'rice', title: 'Famafazana vary', description: 'Misafidiana voa tsara kalitao - Aza mamafaze ivelan\'ny vanim-potcana mety - Aza mamafaze rehefa avy crana be - Tazomy ho lena tsara ny tany saingy aza aondrahana tafehoatra', icon: 'seedling', audio: 'famafazana-vary.wav' },
+    { id: 5, crop: 'general', title: 'Fampiasana zezika komposta', description: 'Afangaroy amin\'ny tany ny komposta - Aza misy fako plastika, vera, metaly ao anatiny - Apatranho loha alahana ny hämbolena - Manampy ny zamamaniry hitombo haingana sy ho matanjaksaactive', icon: 'compost', audio: 'fampiasana-komposta.wav' },
+    { id: 6, crop: 'general', title: 'Vanim-potoana', description: 'Amin\'ny vanim-potcana mafana / fahavatratra - Azo volena - voetabia, sakey, beranjeay, tsaramaso - Amin\'ny fotosm-pahavatratra / crana - Aza mametraka zama-boiy marefo', icon: 'climate', audio: 'vanim-potoana.wav' },
+    { id: 7, crop: 'general', title: 'Hiadiana amin\'ny aretin-javamaniry', description: 'Esory avy hatrany ny ravina na sampana marazy - Acika ho misy elaneiana uy vcily - Aza manodraka mitraka amin\'ny raviny', icon: 'disease', audio: 'hiadiana-aretina.wav' },
+    { id: 8, crop: 'rice', title: 'Momba ny fifinjana', description: 'Jinjaina maraina vao maizina - Aza mijinja raha be ny tany na mbola mando ny vcily', icon: 'harvest', audio: 'momba-fifinjana.wav' },
+    { id: 9, crop: 'general', title: 'Fikarakarana ny saha', description: 'Manaia ahi-dratsy tsy tapaka - Mandic sy manadic fitacvana ampiassaina - Aza mamafy na mamboly sady skalky loatra - Jereo matetika ny lakandrano sy ny tatatra sac mihitsoka', icon: 'tools', audio: 'fikarakarana-saha.wav' },
+    { id: 10, crop: 'general', title: 'Aza adino mihitsy!', description: 'Jereo foana ny toetrandy alohany hamafazana na hämbolena. Izany no fototy ny tetikasa "Tantsaha Connect". ', icon: 'reminder', audio: 'aza-adino.wav' },
   ];
   res.json(advices);
 });

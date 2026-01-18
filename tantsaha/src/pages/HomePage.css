@@ -2,11 +2,49 @@
   padding: 20px;
   background: #f9f9f9;
   min-height: calc(100vh - 200px);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .home-section {
   margin-bottom: 28px;
   animation: slideIn 0.4s ease;
+}
+
+.home-section:first-of-type {
+  background-image: url('/src/assets/weather.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-section:first-of-type::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  filter: blur(2px);
+  z-index: 1;
+}
+
+.home-section:first-of-type > * {
+  position: relative;
+  z-index: 2;
+}
+
+.home-section:first-of-type .section-title {
+  color: #FFFFFF;
+}
+
+.home-section:first-of-type .section-title svg {
+  color: #FFFFFF;
 }
 
 @keyframes slideIn {
@@ -48,6 +86,11 @@
   gap: 12px;
 }
 
+.stats-grid > * {
+  position: relative;
+  z-index: 2;
+}
+
 .stat-item {
   display: flex;
   flex-direction: column;
@@ -60,20 +103,21 @@
 .stat-value {
   font-size: 28px;
   font-weight: 700;
-  color: #4CAF50;
+  color: #000000;
   display: block;
   margin-bottom: 4px;
 }
 
 .stat-label {
   font-size: 12px;
-  color: #999;
+  color: #000000;
   text-transform: uppercase;
 }
 
 @media (max-width: 768px) {
   .homepage {
     padding: 16px;
+    grid-template-columns: 1fr;
   }
 
   .home-section {

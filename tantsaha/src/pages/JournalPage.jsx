@@ -101,10 +101,10 @@ const JournalPage = React.memo(() => {
                   value={formData.type}
                   onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                 >
-                  <option value="rain">🌧️ Pluie</option>
-                  <option value="pest">🐛 Parasites</option>
-                  <option value="planting">🌱 Semis</option>
-                  <option value="harvest">🌾 Récolte</option>
+                  <option value="rain">Pluie</option>
+                  <option value="pest">Parasites</option>
+                  <option value="planting">Semis</option>
+                  <option value="harvest">Récolte</option>
                 </select>
               </div>
               <div className="form-group">
@@ -153,10 +153,10 @@ const JournalPage = React.memo(() => {
             className="filter-select"
           >
             <option value="all">Tous les types</option>
-            <option value="rain">🌧️ Pluie</option>
-            <option value="pest">🐛 Parasites</option>
-            <option value="planting">🌱 Semis</option>
-            <option value="harvest">🌾 Récolte</option>
+            <option value="rain">Pluie</option>
+            <option value="pest">Parasites</option>
+            <option value="planting">Semis</option>
+            <option value="harvest">Récolte</option>
           </select>
           <select
             value={filterCrop}

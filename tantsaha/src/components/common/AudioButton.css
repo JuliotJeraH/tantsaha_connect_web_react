@@ -1,0 +1,58 @@
+.audio-button {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.audio-button:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.audio-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.audio-button.playing {
+  background: linear-gradient(135deg, #ff9800 0%, #fb8c00 100%);
+  animation: pulse 1s infinite;
+}
+
+.audio-button .icon {
+  display: inline-block;
+  font-size: 16px;
+}
+
+.audio-button .text {
+  display: inline-block;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(255, 152, 0, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .audio-button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .audio-button .icon {
+    font-size: 14px;
+  }
+}

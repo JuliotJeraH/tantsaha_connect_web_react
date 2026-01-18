@@ -1,18 +1,23 @@
 import React, { useMemo } from 'react';
 import { FaCloud, FaCloudRain, FaSun, FaWind } from 'react-icons/fa';
 import Card from '../common/Card';
+import weatherBg from '../../assets/weather.png';
 import './WeatherCard.css';
 
-const WeatherCard = React.memo(({ weather }) => {
+const WeatherCard = React.memo(({ weather, showHighlight = true }) => {
   const getWeatherIcon = useMemo(() => {
     return (condition) => {
-      switch (condition) {
-        case 'rainy':
-          return <FaCloudRain className="weather-icon rain" />;
-        case 'sunny':
-          return <FaSun className="weather-icon sun" />;
-        default:
-          return <FaCloud className="weather-icon cloud" />;
+      if (!condition) return <FaSun className="weather-icon sun" />;
+      const lowerCondition = condition.toLowerCase();
+      
+      if (lowerCondition.includes('rain')) {
+        return <FaCloudRain className="weather-icon rain" />;
+      } else if (lowerCondition.includes('cloud')) {
+        return <FaCloud className="weather-icon cloud" />;
+      } else if (lowerCondition.includes('clear') || lowerCondition.includes('sunny') || lowerCondition.includes('sunny')) {
+        return <FaSun className="weather-icon sun" />;
+      } else {
+        return <FaSun className="weather-icon sun" />;
       }
     };
   }, []);
@@ -22,7 +27,12 @@ const WeatherCard = React.memo(({ weather }) => {
   }
 
   return (
-    <Card className="weather-card highlighted">
+    <Card 
+      className={showHighlight ? "weather-card highlighted" : "weather-card"} 
+      style={{
+        '--bg-image': `url(${weatherBg})`
+      }}
+    >
       <div className="weather-header">
         <div className="weather-icon-container">
           {getWeatherIcon(weather.condition)}

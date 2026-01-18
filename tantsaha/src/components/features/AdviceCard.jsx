@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaBook, FaLeaf, FaBug, FaCheckCircle, FaTint } from 'react-icons/fa';
+import { FaBook, FaLeaf, FaBug, FaCheckCircle, FaTint, FaLightbulb } from 'react-icons/fa';
 import Card from '../common/Card';
 import './AdviceCard.css';
 
@@ -12,6 +12,7 @@ const AdviceCard = React.memo(({ advice }) => {
         bug: <FaBug className="advice-icon" />,
         shield: <FaCheckCircle className="advice-icon" />,
         book: <FaBook className="advice-icon" />,
+        lightbulb: <FaLightbulb className="advice-icon" />,
       };
       return iconMap[icon] || iconMap.book;
     };
