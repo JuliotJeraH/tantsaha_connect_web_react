@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { FaTrash, FaTint, FaBug, FaCalendar } from 'react-icons/fa';
+import React, { useCallback, useMemo } from 'react';
+import { FaTrash, FaSearch, FaExclamationCircle } from 'react-icons/fa';
 import Card from '../common/Card';
 import Button from '../common/Button';
 import './ObservationItem.css';
@@ -10,20 +10,22 @@ const ObservationItem = React.memo(({ observation, onDelete, hideDelete = false 
   }, [observation.id, onDelete]);
 
   const getObservationIcon = useCallback((type) => {
-    switch (type) {
-      case 'rain':
-        return <FaTint className="obs-icon rain" />;
-      case 'pest':
-        return <FaBug className="obs-icon pest" />;
-      case 'planting':
-        return <FaCalendar className="obs-icon planting" />;
-      default:
-        return <FaCalendar className="obs-icon" />;
-    }
+    return <FaSearch className="obs-icon" />;
   }, []);
 
+  const isToday = useMemo(() => {
+    const obsDate = new Date(observation.date).toLocaleDateString('fr-FR');
+    const today = new Date().toLocaleDateString('fr-FR');
+    return obsDate === today;
+  }, [observation.date]);
+
   return (
-    <Card className="observation-item">
+    <Card className={`observation-item ${isToday ? 'is-today' : ''}`}>
+      {isToday && (
+        <div className="obs-alert">
+          <FaExclamationCircle /> À faire aujourd'hui !
+        </div>
+      )}
       <div className="obs-header">
         <div className="obs-info">
           <div className="obs-type-badge">

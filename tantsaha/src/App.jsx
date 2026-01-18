@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { FaLeaf } from 'react-icons/fa';
 import './App.css';
 import Header from './components/common/Header';
 import HomePage from './pages/HomePage';
@@ -72,7 +73,7 @@ const App = () => {
       </main>
       {hasSeenOnboarding && (
         <footer className="app-footer">
-          <p>🌾 Tantsaha Connect © 2026 - Pour les paysans malagasy</p>
+          <p><FaLeaf /> Tantsaha Connect © 2026 - Pour les paysans malagasy</p>
         </footer>
       )}
     </div>

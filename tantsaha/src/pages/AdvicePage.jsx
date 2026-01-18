@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaBook } from 'react-icons/fa';
 import Card from '../components/common/Card';
 import Loading from '../components/common/Loading';
 import AudioButton from '../components/common/AudioButton';
@@ -52,7 +53,7 @@ const AdvicePage = () => {
     {
       id: 5,
       titre: 'Fampiasana zezika komposta',
-      description: '-Afangaroy amin\'ny tany ny komposta\n-Aza misy fako plastika, vera, metaly ao anatiny\n-Apetraho alohan\'ny hambolena\n-Manampy ny zavamaniry hitombo haingana sy ho matanjakaactive.',
+      description: '-Afangaroy amin\'ny tany ny komposta\n-Aza misy fako plastika, vera, metaly ao anatiny\n-Apetraho alohan\'ny hambolena\n-Manampy ny zavamaniry hitombo haingana sy ho matanjaka',
       audio_path: fertilisationCompost,
       categorie: 'general'
     },
@@ -95,6 +96,11 @@ const AdvicePage = () => {
 
   return (
     <div className="advice-page">
+      <div className="page-header">
+        <h2>
+          <FaBook /> Torolalana efa misy
+        </h2>
+      </div>
       <div className="conseils-container">
         {loading ? (
           <Loading />
@@ -130,5 +136,7 @@ const AdvicePage = () => {
     </div>
   );
 };
+
+AdvicePage.displayName = 'AdvicePage';
 
 export default AdvicePage;

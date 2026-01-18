@@ -1,8 +1,10 @@
 import React from 'react';
 import './Header.css';
-import { FaLeaf, FaCalendar, FaCloud, FaBook, FaBell, FaHome } from 'react-icons/fa';
+import { FaLeaf, FaCalendar, FaCloud, FaBook, FaBell, FaHome, FaBars, FaTimes } from 'react-icons/fa';
 
 const Header = React.memo(({ currentPage, onNavigate, alertsCount = 0 }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  
   const navItems = [
     { id: 'home', label: 'Lamina', icon: FaHome },
     { id: 'weather', label: 'Toetr\'andro', icon: FaCloud },
@@ -11,22 +13,34 @@ const Header = React.memo(({ currentPage, onNavigate, alertsCount = 0 }) => {
     { id: 'advice', label: 'Torolalana', icon: FaBook },
   ];
 
+  const handleNavClick = (pageId) => {
+    onNavigate(pageId);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className="header">
       <div className="header-top">
         <div className="header-title">
           <FaLeaf className="header-icon" />
           <h1>Tantsaha Connect</h1>
+          <button 
+            className="hamburger-menu" 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Menu"
+          >
+            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
       </div>
-      <nav className="header-nav">
+      <nav className={`header-nav ${mobileMenuOpen ? 'mobile-open' : ''}`}>
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
             <button
               key={item.id}
               className={`nav-item ${currentPage === item.id ? 'active' : ''}`}
-              onClick={() => onNavigate(item.id)}
+              onClick={() => handleNavClick(item.id)}
               title={item.label}
             >
               <div className="nav-icon-wrapper">

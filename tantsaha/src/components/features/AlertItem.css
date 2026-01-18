@@ -1,25 +1,20 @@
 .alert-item {
   margin-bottom: 12px;
-  border-left: 4px solid #999;
 }
 
 .alert-item.danger {
-  border-left-color: #f44336;
   background-color: #ffebee;
 }
 
 .alert-item.warning {
-  border-left-color: #ff9800;
   background-color: #fff3e0;
 }
 
 .alert-item.info {
-  border-left-color: #2196F3;
   background-color: #e3f2fd;
 }
 
 .alert-item.highlighted {
-  border-left-color: #4CAF50;
   background-color: #e8f5e9;
 }
 

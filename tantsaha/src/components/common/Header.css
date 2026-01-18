@@ -2,6 +2,7 @@
   background: #2E7D32;
   color: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .header-top {
@@ -16,6 +17,19 @@
   justify-content: flex-start;
   gap: 12px;
   margin: 0;
+  position: relative;
+}
+
+.hamburger-menu {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: auto;
+  transition: all 0.3s ease;
 }
 
 .header-icon {
@@ -115,8 +129,15 @@
 }
 
 @media (max-width: 768px) {
+  .hamburger-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .header-title h1 {
     font-size: 22px;
+    flex: 1;
   }
 
   .header-top {
@@ -124,21 +145,47 @@
   }
 
   .header-nav {
-    gap: 2px;
-    padding: 4px;
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .header-nav.mobile-open {
+    display: flex;
+    background: #2E7D32;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
 
   .nav-item {
-    min-width: 50px;
-    padding: 6px 2px;
+    min-width: auto;
+    flex: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 12px 16px;
+    border-radius: 0;
+    gap: 12px;
+  }
+
+  .nav-item .nav-icon-wrapper {
+    min-width: 32px;
+  }
+
+  .nav-label {
+    font-size: 14px;
+    text-align: left;
+    overflow: visible;
+    white-space: normal;
   }
 
   .nav-icon {
     font-size: 20px;
-  }
-
-  .nav-label {
-    font-size: 10px;
   }
 }
 
@@ -153,9 +200,5 @@
 
   .header-icon {
     font-size: 24px;
-  }
-
-  .nav-item {
-    min-width: 45px;
   }
 }

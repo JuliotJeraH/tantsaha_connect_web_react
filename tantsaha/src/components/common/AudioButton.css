@@ -1,5 +1,5 @@
 .audio-button {
-  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  background: linear-gradient(135deg, #DAA520 0%, #CD9B1D 100%);
   color: white;
   border: none;
   padding: 10px 16px;
@@ -11,11 +11,12 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .audio-button:hover:not(:disabled) {
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .audio-button:disabled {

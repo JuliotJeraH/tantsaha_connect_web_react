@@ -78,7 +78,7 @@ const JournalPage = React.memo(() => {
     <div className="journal-page">
       <div className="page-header">
         <h2>
-          <FaCalendar /> Journal de Culture
+          <FaCalendar /> Bokin-tsoratra manokana
         </h2>
         <Button variant="secondary" size="sm" onClick={() => setShowForm(!showForm)}>
           <FaPlus /> Nouvelle observation
@@ -97,26 +97,23 @@ const JournalPage = React.memo(() => {
             <div className="form-row">
               <div className="form-group">
                 <label>Type d'observation</label>
-                <select
+                <input
+                  type="text"
                   value={formData.type}
                   onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                >
-                  <option value="rain">Pluie</option>
-                  <option value="pest">Parasites</option>
-                  <option value="planting">Semis</option>
-                  <option value="harvest">Récolte</option>
-                </select>
+                  placeholder="ex: pluie, parasites, semis..."
+                  required
+                />
               </div>
               <div className="form-group">
                 <label>Culture</label>
-                <select
+                <input
+                  type="text"
                   value={formData.crop}
                   onChange={(e) => setFormData({ ...formData, crop: e.target.value })}
-                >
-                  {CROPS.map(crop => (
-                    <option key={crop} value={crop}>{crop}</option>
-                  ))}
-                </select>
+                  placeholder="ex: riz, maïs, tomate..."
+                  required
+                />
               </div>
             </div>
             <div className="form-group">
