@@ -8,7 +8,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 5000;
+
+// ====== PORT dynamique pour déploiement ======
+const PORT = process.env.PORT || 5000;
 
 // OpenWeatherMap API
 const OPENWEATHER_API_KEY = 'b3ad9b485aac99bfe9e5812e148c0db0';
@@ -64,44 +66,36 @@ const writeJSON = (filePath, data) => {
 };
 
 // Get real weather data from OpenWeatherMap API
-const getRealWeather = async (lat = -18.8792, lon = 47.5079) => { // Default: Antananarivo, Madagascar
+const getRealWeather = async (lat = -18.8792, lon = 47.5079) => {
   try {
     const url = `${OPENWEATHER_BASE_URL}forecast?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}&units=metric`;
     const response = await fetch(url);
-    
-    if (!response.ok) {
-      throw new Error('OpenWeatherMap API error');
-    }
-    
+
+    if (!response.ok) throw new Error('OpenWeatherMap API error');
+
     const data = await response.json();
     const weatherData = [];
-    
-    // Process forecast data (returns 5-day forecast in 3-hour intervals)
     const processedDates = new Set();
-    
+
     for (const forecast of data.list) {
       const date = forecast.dt_txt.split(' ')[0];
-      
-      // Get one entry per day
       if (!processedDates.has(date)) {
         processedDates.add(date);
         weatherData.push({
-          date: date,
+          date,
           temp: Math.round(forecast.main.temp),
           humidity: forecast.main.humidity,
           condition: forecast.weather[0].main.toLowerCase(),
-          rainChance: (forecast.pop || 0) * 100, // Probability of precipitation
-          description: forecast.weather[0].description
+          rainChance: (forecast.pop || 0) * 100,
+          description: forecast.weather[0].description,
         });
       }
-      
-      if (weatherData.length >= 5) break; // Get 5 days
+      if (weatherData.length >= 5) break;
     }
-    
+
     return weatherData;
   } catch (error) {
     console.error('Error fetching weather from OpenWeatherMap:', error);
-    // Return mock data as fallback
     return [
       { date: new Date().toISOString().split('T')[0], temp: 28, humidity: 65, condition: 'sunny', rainChance: 10 },
       { date: new Date(Date.now() + 86400000).toISOString().split('T')[0], temp: 26, humidity: 70, condition: 'partly-cloudy', rainChance: 30 },
@@ -111,81 +105,56 @@ const getRealWeather = async (lat = -18.8792, lon = 47.5079) => { // Default: An
 };
 
 // ============ ALERTS API ============
-app.get('/api/alerts', (req, res) => {
-  const alerts = readJSON(alertsFile);
-  res.json(alerts);
-});
+app.get('/api/alerts', (req, res) => res.json(readJSON(alertsFile)));
 
 app.post('/api/alerts', (req, res) => {
   const { title, description, type, date } = req.body;
   const alerts = readJSON(alertsFile);
-  const newAlert = {
-    id: Date.now(),
-    title,
-    description,
-    type, // 'planting', 'harvest', 'warning'
-    date,
-    createdAt: new Date().toISOString(),
-  };
+  const newAlert = { id: Date.now(), title, description, type, date, createdAt: new Date().toISOString() };
   alerts.push(newAlert);
   writeJSON(alertsFile, alerts);
   res.status(201).json(newAlert);
 });
 
 app.delete('/api/alerts/:id', (req, res) => {
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
   let alerts = readJSON(alertsFile);
-  alerts = alerts.filter(alert => alert.id !== parseInt(id));
+  alerts = alerts.filter(alert => alert.id !== id);
   writeJSON(alertsFile, alerts);
   res.json({ success: true });
 });
 
 // ============ OBSERVATIONS API ============
-app.get('/api/observations', (req, res) => {
-  const observations = readJSON(observationsFile);
-  res.json(observations);
-});
+app.get('/api/observations', (req, res) => res.json(readJSON(observationsFile)));
 
 app.post('/api/observations', (req, res) => {
   const { type, description, date, crop } = req.body;
   const observations = readJSON(observationsFile);
-  const newObservation = {
-    id: Date.now(),
-    type, // 'rain', 'pest', 'planting', 'harvest'
-    description,
-    date,
-    crop,
-    createdAt: new Date().toISOString(),
-  };
+  const newObservation = { id: Date.now(), type, description, date, crop, createdAt: new Date().toISOString() };
   observations.push(newObservation);
   writeJSON(observationsFile, observations);
   res.status(201).json(newObservation);
 });
 
 app.get('/api/observations/:id', (req, res) => {
-  const observations = readJSON(observationsFile);
-  const observation = observations.find(o => o.id === parseInt(req.params.id));
-  if (!observation) {
-    return res.status(404).json({ error: 'Not found' });
-  }
+  const observation = readJSON(observationsFile).find(o => o.id === parseInt(req.params.id));
+  if (!observation) return res.status(404).json({ error: 'Not found' });
   res.json(observation);
 });
 
 app.delete('/api/observations/:id', (req, res) => {
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
   let observations = readJSON(observationsFile);
-  observations = observations.filter(obs => obs.id !== parseInt(id));
+  observations = observations.filter(obs => obs.id !== id);
   writeJSON(observationsFile, observations);
   res.json({ success: true });
 });
 
 // ============ WEATHER API ============
 app.get('/api/weather', async (req, res) => {
-  const { lat, lon } = req.query;
-  const latitude = lat ? parseFloat(lat) : -18.8792;
-  const longitude = lon ? parseFloat(lon) : 47.5079;
-  
-  const weather = await getRealWeather(latitude, longitude);
+  const lat = req.query.lat ? parseFloat(req.query.lat) : -18.8792;
+  const lon = req.query.lon ? parseFloat(req.query.lon) : 47.5079;
+  const weather = await getRealWeather(lat, lon);
   res.json(weather);
 });
 
@@ -216,7 +185,6 @@ app.get('/api/advice', (req, res) => {
 
 // Initialize files and start server
 initializeFiles();
-
 app.listen(PORT, () => {
-  console.log(`🌾 Tantsaha Server running on http://localhost:${PORT}`);
+  console.log(`🌾 Tantsaha Server running on port ${PORT}`);
 });
